@@ -50,6 +50,10 @@
         --transition: all 0.3s ease;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         font-family: "Nunito", -apple-system, BlinkMacSystemFont, sans-serif;
         background-color: var(--parchment);
@@ -689,37 +693,34 @@
         <h1 class="landing-title">Forest Reserve Tracker</h1>
         <p class="landing-subtitle">
           This platform tracks addition and removals of forest reserves in
-          Peninsular Malaysia since 2001.
+          Peninsular Malaysia since 2001 when announcements of these changes
+          became digital.
         </p>
         <h2 class="landing-question">What would you like to do?</h2>
         <div class="options-grid">
           <div class="option-card" data-section="learn">
-            <div class="option-number">1</div>
-            <h3 class="option-title">
-              Learn about forest reserves and stories
-            </h3>
+            <!-- <div class="option-number">1</div> -->
+            <h3 class="option-title">Learn about forest reserves</h3>
             <p class="option-description">
-              Discover information about forest reserves, their importance, and
-              stories from the field.
+              Do you know that most forest reserves can be logged?
             </p>
           </div>
           <div class="option-card" data-section="explore">
-            <div class="option-number">2</div>
+            <!-- <div class="option-number">2</div> -->
             <h3 class="option-title">Explore the data</h3>
             <p class="option-description">
-              Interactive map and dashboard to explore forest reserve changes
-              over time.
+              Check how often governments add or remove forest reserves.
             </p>
           </div>
           <div class="option-card" data-section="download">
-            <div class="option-number">3</div>
+            <!-- <div class="option-number">3</div> -->
             <h3 class="option-title">Download the data</h3>
             <p class="option-description">
-              Access and download the complete dataset for your own analysis.
+              Keen to dive into the numbers? This is for you.
             </p>
           </div>
           <div class="option-card" data-section="contribute">
-            <div class="option-number">4</div>
+            <!-- <div class="option-number">4</div> -->
             <h3 class="option-title">Contribute materials</h3>
             <p class="option-description">
               Share data, photos, stories, and other materials to help improve
@@ -810,6 +811,34 @@
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
           targetSection.classList.add("active");
+
+          // Scroll to the section to bring it into full view
+          // Use a small delay to ensure the section is rendered after display change
+          setTimeout(() => {
+            if (sectionId === "landing-page") {
+              // For landing page, scroll to top
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            } else {
+              // Get the position of the section
+              const sectionTop = targetSection.offsetTop;
+
+              // Scroll to the section smoothly
+              window.scrollTo({
+                top: sectionTop,
+                behavior: "smooth",
+              });
+
+              // Also use scrollIntoView as a fallback for better browser compatibility
+              targetSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "nearest",
+              });
+            }
+          }, 50);
         }
 
         // Show/hide back button
