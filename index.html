@@ -638,6 +638,167 @@
         margin-top: 20px;
       }
 
+      /* Article Section Styles */
+      .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 20px;
+        background: var(--parchment);
+        min-height: 100vh;
+      }
+
+      .article-header {
+        margin-bottom: 48px;
+        padding-bottom: 32px;
+        border-bottom: 3px solid var(--forest-pale);
+      }
+
+      .article-title {
+        font-family: "Rufina", serif;
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--prussian-blue);
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+
+      .article-subtitle {
+        font-size: 20px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Chapter Navigation */
+      .chapter-nav {
+        background: var(--bg-panel);
+        padding: 24px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        margin-bottom: 48px;
+        border-left: 5px solid var(--forest-light);
+      }
+
+      .chapter-nav-title {
+        font-family: "Rufina", serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--prussian-blue);
+        margin-bottom: 16px;
+      }
+
+      .chapter-nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .chapter-nav-item {
+        margin-bottom: 12px;
+      }
+
+      .chapter-nav-link {
+        color: var(--forest-medium);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: block;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .chapter-nav-link:hover {
+        background: var(--forest-pale);
+        color: var(--forest-dark);
+        transform: translateX(4px);
+      }
+
+      .chapter-nav-link:focus {
+        outline: 2px solid var(--forest-light);
+        outline-offset: 2px;
+      }
+
+      /* Chapter Content */
+      .chapter {
+        margin-bottom: 64px;
+        scroll-margin-top: 20px;
+      }
+
+      .chapter-title {
+        font-family: "Rufina", serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--prussian-blue);
+        margin-bottom: 24px;
+        padding-top: 20px;
+        border-top: 2px solid var(--forest-pale);
+      }
+
+      .chapter:first-of-type .chapter-title {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .chapter-content {
+        font-size: 18px;
+        line-height: 1.8;
+        color: var(--text-primary);
+      }
+
+      .chapter-content p {
+        margin-bottom: 20px;
+      }
+
+      .chapter-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        margin: 32px 0;
+        display: block;
+      }
+
+      .chapter-content iframe {
+        width: 100%;
+        border: none;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        margin: 32px 0;
+        min-height: 500px;
+      }
+
+      /* Responsive adjustments for article */
+      @media (max-width: 768px) {
+        .article-container {
+          padding: 40px 16px;
+        }
+
+        .article-title {
+          font-size: 32px;
+        }
+
+        .article-subtitle {
+          font-size: 18px;
+        }
+
+        .chapter-title {
+          font-size: 26px;
+        }
+
+        .chapter-content {
+          font-size: 16px;
+        }
+
+        .chapter-content iframe {
+          min-height: 400px;
+        }
+
+        .chapter-nav {
+          padding: 20px;
+        }
+      }
+
       @media (max-width: 768px) {
         .landing-title {
           font-size: 32px;
@@ -733,15 +894,8 @@
 
     <!-- Learn Section -->
     <section id="learn-section" class="section">
-      <div class="placeholder-section">
-        <div class="placeholder-content">
-          <h2 class="placeholder-title">Learn about Forest Reserves</h2>
-          <p class="placeholder-text">
-            This section will contain educational content about forest reserves,
-            their importance, conservation efforts, and stories from the field.
-          </p>
-          <div class="coming-soon">Coming Soon</div>
-        </div>
+      <div class="article-container" id="learn-article-container">
+        <!-- Article content will be inserted here by JavaScript -->
       </div>
     </section>
 
@@ -765,16 +919,8 @@
 
     <!-- Download Section -->
     <section id="download-section" class="section">
-      <div class="placeholder-section">
-        <div class="placeholder-content">
-          <h2 class="placeholder-title">Download the Data</h2>
-          <p class="placeholder-text">
-            This section will provide access to download the complete forest
-            reserve dataset in various formats (CSV, JSON, GeoJSON) for your own
-            analysis and research.
-          </p>
-          <div class="coming-soon">Coming Soon</div>
-        </div>
+      <div class="article-container" id="download-article-container">
+        <!-- Article content will be inserted here by JavaScript -->
       </div>
     </section>
 
@@ -850,6 +996,11 @@
             backButton.classList.add("active");
           }
         }
+
+        // Initialize articles when sections are shown
+        setTimeout(() => {
+          initializeArticlesOnShow();
+        }, 50);
 
         // If showing dashboard, initialize map if needed and ensure it's properly sized
         if (sectionId === "dashboard-section") {
@@ -942,6 +1093,238 @@
       }
 
       // ============================================================================
+      // Article Content System
+      // ============================================================================
+
+      /**
+       * Article content data structure
+       * Easy to extend - just add new articles to these objects
+       */
+      const ARTICLE_CONTENT = {
+        learn: {
+          title: "Learn about Forest Reserves",
+          subtitle:
+            "Understanding forest reserve management and conservation in Malaysia",
+          chapters: [
+            {
+              id: "intro",
+              title: "Introduction",
+              content: `
+                <p>This is where your introduction content goes. You can add paragraphs, images, and interactive elements.</p>
+                <p>Add more paragraphs as needed to explain the topic.</p>
+              `,
+            },
+            {
+              id: "chapter2",
+              title: "Chapter 2: Understanding Forest Reserves",
+              content: `
+                <p>Your chapter 2 content here. Include text, images, and interactive iframes.</p>
+                <p>For images, use: <code>&lt;img src="path/to/image.jpg" alt="Description"&gt;</code></p>
+                <p>For interactive maps/graphs, use: <code>&lt;iframe src="url-to-embed"&gt;&lt;/iframe&gt;</code></p>
+              `,
+            },
+            // Add more chapters as needed
+          ],
+        },
+        download: {
+          title: "Download the Data",
+          subtitle: "Access and use the complete forest reserve dataset",
+          chapters: [
+            {
+              id: "data-overview",
+              title: "Data Overview",
+              content: `
+                <p>This section provides information about downloading the forest reserve data.</p>
+                <p>Explain what data formats are available and how to use them.</p>
+              `,
+            },
+            {
+              id: "download-instructions",
+              title: "How to Download",
+              content: `
+                <p>Step-by-step instructions for downloading the data.</p>
+                <p>Include information about different file formats (CSV, JSON, GeoJSON).</p>
+              `,
+            },
+            // Add more chapters as needed
+          ],
+        },
+      };
+
+      /**
+       * Generates HTML for an article
+       * @param {Object} articleData - Article data object
+       * @returns {string} HTML string
+       */
+      function generateArticleHTML(articleData) {
+        if (
+          !articleData ||
+          !articleData.chapters ||
+          articleData.chapters.length === 0
+        ) {
+          return '<div class="placeholder-content"><div class="placeholder-title">No content available</div></div>';
+        }
+
+        // Generate chapter navigation
+        const chapterNav = `
+          <div class="chapter-nav">
+            <h3 class="chapter-nav-title">Table of Contents</h3>
+            <ul class="chapter-nav-list">
+              ${articleData.chapters
+                .map(
+                  (chapter) => `
+                <li class="chapter-nav-item">
+                  <a href="#chapter-${
+                    chapter.id
+                  }" class="chapter-nav-link" data-chapter-id="${chapter.id}">
+                    ${escapeHtml(chapter.title)}
+                  </a>
+                </li>
+              `
+                )
+                .join("")}
+            </ul>
+          </div>
+        `;
+
+        // Generate article header
+        const articleHeader = `
+          <div class="article-header">
+            <h1 class="article-title">${escapeHtml(articleData.title)}</h1>
+            ${
+              articleData.subtitle
+                ? `<p class="article-subtitle">${escapeHtml(
+                    articleData.subtitle
+                  )}</p>`
+                : ""
+            }
+          </div>
+        `;
+
+        // Generate chapters
+        const chapters = articleData.chapters
+          .map(
+            (chapter) => `
+          <div class="chapter" id="chapter-${chapter.id}">
+            <h2 class="chapter-title">${escapeHtml(chapter.title)}</h2>
+            <div class="chapter-content">
+              ${chapter.content}
+            </div>
+          </div>
+        `
+          )
+          .join("");
+
+        return articleHeader + chapterNav + chapters;
+      }
+
+      /**
+       * Initializes article content for a section
+       * @param {string} sectionId - ID of the section (learn or download)
+       * @param {string} containerId - ID of the container element
+       */
+      function initializeArticle(sectionId, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        const articleData = ARTICLE_CONTENT[sectionId];
+        if (articleData) {
+          container.innerHTML = generateArticleHTML(articleData);
+
+          // Attach click handlers to chapter navigation links
+          attachChapterNavHandlers(container);
+        }
+      }
+
+      /**
+       * Attaches click handlers to chapter navigation links
+       * @param {HTMLElement} container - Container element
+       */
+      function attachChapterNavHandlers(container) {
+        const navLinks = container.querySelectorAll(".chapter-nav-link");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const chapterId = this.dataset.chapterId;
+            if (chapterId) {
+              scrollToChapter(chapterId);
+            }
+          });
+        });
+      }
+
+      /**
+       * Scrolls to a specific chapter
+       * @param {string} chapterId - ID of the chapter to scroll to
+       */
+      function scrollToChapter(chapterId) {
+        const chapterElement = document.getElementById(`chapter-${chapterId}`);
+        if (chapterElement) {
+          const offsetTop = chapterElement.offsetTop - 20; // Small offset from top
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
+
+          // Update URL hash without triggering scroll
+          if (history.pushState) {
+            history.pushState(null, null, `#chapter-${chapterId}`);
+          }
+        }
+      }
+
+      /**
+       * Initializes articles when sections are shown
+       */
+      function initializeArticlesOnShow() {
+        // Check if learn section is active and not yet initialized
+        const learnSection = document.getElementById("learn-section");
+        const learnContainer = document.getElementById(
+          "learn-article-container"
+        );
+        if (
+          learnSection &&
+          learnSection.classList.contains("active") &&
+          learnContainer &&
+          !learnContainer.dataset.initialized
+        ) {
+          initializeArticle("learn", "learn-article-container");
+          learnContainer.dataset.initialized = "true";
+
+          // Handle hash on load
+          setTimeout(() => {
+            const hash = window.location.hash.replace("#chapter-", "");
+            if (hash) {
+              scrollToChapter(hash);
+            }
+          }, 100);
+        }
+
+        // Check if download section is active and not yet initialized
+        const downloadSection = document.getElementById("download-section");
+        const downloadContainer = document.getElementById(
+          "download-article-container"
+        );
+        if (
+          downloadSection &&
+          downloadSection.classList.contains("active") &&
+          downloadContainer &&
+          !downloadContainer.dataset.initialized
+        ) {
+          initializeArticle("download", "download-article-container");
+          downloadContainer.dataset.initialized = "true";
+
+          // Handle hash on load
+          setTimeout(() => {
+            const hash = window.location.hash.replace("#chapter-", "");
+            if (hash) {
+              scrollToChapter(hash);
+            }
+          }, 100);
+        }
+      }
+
+      // ============================================================================
       // Configuration Constants
       // ============================================================================
       const CONFIG = {
@@ -954,8 +1337,8 @@
         MAP: {
           CENTER: [4.5, 102.5],
           ZOOM: 7,
-          MIN_ZOOM: 0,
-          MAX_ZOOM: 20,
+          MIN_ZOOM: 7,
+          MAX_ZOOM: 13,
         },
         YEARS: {
           START: 2001,
@@ -1191,15 +1574,26 @@
         });
 
         L.tileLayer(
-          "https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}",
+          "https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.{ext}",
           {
             minZoom: CONFIG.MAP.MIN_ZOOM,
             maxZoom: CONFIG.MAP.MAX_ZOOM,
             attribution:
-              '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            ext: "jpg",
+              '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            ext: "png",
           }
         ).addTo(map);
+
+        // L.tileLayer(
+        //   "https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}",
+        //   {
+        //     minZoom: CONFIG.MAP.MIN_ZOOM,
+        //     maxZoom: CONFIG.MAP.MAX_ZOOM,
+        //     attribution:
+        //       '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        //     ext: "jpg",
+        //   }
+        // ).addTo(map);
 
         window.mapInstance = map;
         return map;
@@ -1980,6 +2374,13 @@
         // Load data when page loads (for dashboard section)
         // Data will be ready when user navigates to dashboard
         loadData();
+
+        // Initialize articles on initial page load if hash exists
+        if (window.location.hash) {
+          setTimeout(() => {
+            initializeArticlesOnShow();
+          }, 300);
+        }
       }
 
       // Start the application when DOM is ready
