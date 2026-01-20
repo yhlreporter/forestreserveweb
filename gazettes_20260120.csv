@@ -1,4 +1,4 @@
-﻿state,district,mukim,"gaznum,",reserve,add,remove,gaz_year,gaz_month,gaz_day,gazeff_year,gazeff_month,gazeff_day,gaz_notes
+﻿state,district,mukim,"gaznum",reserve,add,remove,gaz_year,gaz_month,gaz_day,gazeff_year,gazeff_month,gazeff_day,gaz_notes
 Penang,Barat Daya,"1, 7",1291,Pulau Betong,1.2251,,2022,12,15,2022,12,15,
 Penang,Barat Daya,1,90,Sungai Pinang Plot 1,3.85,,2025,1,16,2025,1,16,
 Penang,Barat Daya,D,90,Sungai Rusa Plot 2,5.27,,2025,1,16,2025,1,16,
@@ -934,3 +934,4 @@ Johor,Mersing,Mersing,5013,Tenggaroh,,6917.29,2014,12,18,2014,12,18,Gazette Plan
 Perak,Hilir Perak,"Hutan Melintang, Durian Sebatang",1623,Erong,,7649.67,2004,12,30,2004,12,30,Gazette Plan: PW 1627. 
 Johor,Mersing,Endau,5012,Jemaluang,,8093.713,2014,12,18,2014,12,18,Gazette Plan: PW 1. 
 Pahang,Rompin,Keratong,2488,Bukit Ibam,,8494.08,2020,11,19,2020,11,19,Gazette Plan: PW 5364. 
+
